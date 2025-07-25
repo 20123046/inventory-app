@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
-    <title>入出庫管理 | 在庫管理システム</title>
+    <title>商品編集 | 在庫管理システム</title>
     <style>
         body {
             background: #f4f6f8;
@@ -10,6 +11,7 @@
             margin: 0;
             padding: 0;
         }
+
         .header {
             background: #2c3e50;
             color: #fff;
@@ -19,15 +21,17 @@
             letter-spacing: 2px;
             font-weight: bold;
         }
+
         .container {
             background: #fff;
-            max-width: 480px;
+            max-width: 420px;
             margin: 40px auto;
             padding: 32px 36px 24px 36px;
             border-radius: 8px;
-            box-shadow: 0 2px 12px rgba(44,62,80,0.08);
+            box-shadow: 0 2px 12px rgba(44, 62, 80, 0.08);
             border: 1px solid #e0e0e0;
         }
+
         h1 {
             font-size: 1.3em;
             margin-bottom: 18px;
@@ -35,21 +39,25 @@
             border-left: 4px solid #2980b9;
             padding-left: 10px;
         }
+
         .form-table {
             width: 100%;
             border-collapse: separate;
             border-spacing: 0 12px;
         }
+
         .form-table td {
             padding: 0 0 0 4px;
         }
+
         label {
             font-weight: bold;
             color: #34495e;
             display: inline-block;
             margin-bottom: 4px;
         }
-        input[type="text"], input[type="number"], select {
+
+        input[type="text"] {
             width: 98%;
             padding: 7px 8px;
             border: 1px solid #bfc9d1;
@@ -57,6 +65,7 @@
             font-size: 1em;
             background: #f9fafb;
         }
+
         button[type="submit"] {
             background: #2980b9;
             color: #fff;
@@ -69,22 +78,27 @@
             cursor: pointer;
             transition: background 0.2s;
         }
+
         button[type="submit"]:hover {
             background: #206090;
         }
+
         .back-link {
             display: block;
             margin-top: 24px;
             text-align: right;
         }
+
         .back-link a {
             color: #2980b9;
             text-decoration: none;
             font-size: 0.98em;
         }
+
         .back-link a:hover {
             text-decoration: underline;
         }
+
         .desc {
             color: #888;
             font-size: 0.98em;
@@ -92,46 +106,33 @@
         }
     </style>
 </head>
+
 <body>
     <div class="header">株式会社サンプル商事　在庫管理システム</div>
     <div class="container">
-        <h1>入出庫登録</h1>
-        <div class="desc">商品の入庫・出庫を登録します。必要事項を入力してください。</div>
-        <form method="post" action="/stock">
+        <h1>商品情報編集</h1>
+        <div class="desc">商品情報を修正し「更新」ボタンを押してください。</div>
+        <form method="post">
             <table class="form-table">
                 <tr>
-                    <td><label for="product_id">商品</label></td>
-                    <td>
-                        <select id="product_id" name="product_id" required>
-                            {% for product in products %}
-                            <option value="{{ product.id }}">{{ product.name }}</option>
-                            {% endfor %}
-                        </select>
-                    </td>
+                    <td><label for="name">商品名</label></td>
+                    <td><input type="text" id="name" name="name" value="{{ product.name }}" required></td>
                 </tr>
                 <tr>
-                    <td><label for="type">種類</label></td>
-                    <td>
-                        <select id="type" name="type" required>
-                            <option value="in">入庫</option>
-                            <option value="out">出庫</option>
-                        </select>
-                    </td>
+                    <td><label for="sku">SKU</label></td>
+                    <td><input type="text" id="sku" name="sku" value="{{ product.sku }}"></td>
                 </tr>
                 <tr>
-                    <td><label for="qty">数量</label></td>
-                    <td><input type="number" id="qty" name="qty" min="1" required></td>
-                </tr>
-                <tr>
-                    <td><label for="note">メモ</label></td>
-                    <td><input type="text" id="note" name="note"></td>
+                    <td><label for="unit">単位</label></td>
+                    <td><input type="text" id="unit" name="unit" value="{{ product.unit }}"></td>
                 </tr>
             </table>
-            <button type="submit">登録</button>
+            <button type="submit">更新</button>
         </form>
         <div class="back-link">
             <a href="{{ url_for('products') }}">← 商品一覧へ戻る</a>
         </div>
     </div>
 </body>
+
 </html>

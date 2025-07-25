@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
-    <title>商品追加 | 在庫管理システム</title>
+    <title>商品削除確認 | 在庫管理システム</title>
     <style>
         body {
             background: #f4f6f8;
@@ -10,6 +11,7 @@
             margin: 0;
             padding: 0;
         }
+
         .header {
             background: #2c3e50;
             color: #fff;
@@ -19,104 +21,89 @@
             letter-spacing: 2px;
             font-weight: bold;
         }
+
         .container {
             background: #fff;
             max-width: 420px;
             margin: 40px auto;
             padding: 32px 36px 24px 36px;
             border-radius: 8px;
-            box-shadow: 0 2px 12px rgba(44,62,80,0.08);
+            box-shadow: 0 2px 12px rgba(44, 62, 80, 0.08);
             border: 1px solid #e0e0e0;
         }
+
         h1 {
             font-size: 1.3em;
             margin-bottom: 18px;
             color: #2c3e50;
-            border-left: 4px solid #2980b9;
+            border-left: 4px solid #c0392b;
             padding-left: 10px;
         }
-        .form-table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0 12px;
-        }
-        .form-table td {
-            padding: 0 0 0 4px;
-        }
-        label {
-            font-weight: bold;
-            color: #34495e;
-            display: inline-block;
-            margin-bottom: 4px;
-        }
-        input[type="text"] {
-            width: 98%;
-            padding: 7px 8px;
-            border: 1px solid #bfc9d1;
-            border-radius: 4px;
+
+        .desc {
+            color: #c0392b;
             font-size: 1em;
-            background: #f9fafb;
+            margin-bottom: 18px;
+            font-weight: bold;
         }
+
+        .product-info {
+            margin-bottom: 18px;
+            color: #34495e;
+        }
+
         button[type="submit"] {
-            background: #2980b9;
+            background: #c0392b;
             color: #fff;
             font-weight: bold;
             border: none;
             border-radius: 4px;
             padding: 10px 32px;
             font-size: 1em;
-            margin-top: 18px;
+            margin-top: 8px;
             cursor: pointer;
             transition: background 0.2s;
         }
+
         button[type="submit"]:hover {
-            background: #206090;
+            background: #a93226;
         }
+
         .back-link {
             display: block;
             margin-top: 24px;
             text-align: right;
         }
+
         .back-link a {
             color: #2980b9;
             text-decoration: none;
             font-size: 0.98em;
         }
+
         .back-link a:hover {
             text-decoration: underline;
         }
-        .desc {
-            color: #888;
-            font-size: 0.98em;
-            margin-bottom: 18px;
-        }
     </style>
 </head>
+
 <body>
     <div class="header">株式会社サンプル商事　在庫管理システム</div>
     <div class="container">
-        <h1>商品マスタ追加</h1>
-        <div class="desc">新しい商品を登録します。必要事項を入力してください。</div>
-        <form method="post" action="/add_product">
-            <table class="form-table">
-                <tr>
-                    <td><label for="name">商品名</label></td>
-                    <td><input type="text" id="name" name="name" required></td>
-                </tr>
-                <tr>
-                    <td><label for="sku">SKU</label></td>
-                    <td><input type="text" id="sku" name="sku"></td>
-                </tr>
-                <tr>
-                    <td><label for="unit">単位</label></td>
-                    <td><input type="text" id="unit" name="unit"></td>
-                </tr>
-            </table>
-            <button type="submit">追加</button>
+        <h1>商品削除確認</h1>
+        <div class="desc">本当にこの商品を削除しますか？（元に戻せません）</div>
+        <div class="product-info">
+            <strong>商品名：</strong>{{ product.name }}<br>
+            <strong>SKU：</strong>{{ product.sku }}<br>
+            <strong>単位：</strong>{{ product.unit }}
+        </div>
+        <form method="post">
+            <button type="submit">削除する</button>
         </form>
         <div class="back-link">
             <a href="{{ url_for('products') }}">← 商品一覧へ戻る</a>
         </div>
     </div>
 </body>
+
 </html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>入出庫履歴 | 在庫管理システム</title>
+    <style>
+        body {
+            background: #f4f6f8;
+            font-family: 'Segoe UI', 'Meiryo', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 1.5em;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        .container {
+            background: #fff;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 32px 36px 24px 36px;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(44, 62, 80, 0.08);
+            border: 1px solid #e0e0e0;
+        }
+
+        h1 {
+            font-size: 1.3em;
+            margin-bottom: 18px;
+            color: #2c3e50;
+            border-left: 4px solid #2980b9;
+            padding-left: 10px;
+        }
+
+        .product-info {
+            margin-bottom: 18px;
+            color: #34495e;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: #fafbfc;
+            margin-bottom: 12px;
+        }
+
+        th,
+        td {
+            padding: 10px 8px;
+            text-align: left;
+        }
+
+        th {
+            background: #eaf1fb;
+            color: #2c3e50;
+            font-weight: bold;
+            border-bottom: 2px solid #bfc9d1;
+        }
+
+        tr:nth-child(even) td {
+            background: #f4f6fa;
+        }
+
+        tr:hover td {
+            background: #e3f0ff;
+        }
+
+        .no-history {
+            color: #888;
+            margin: 24px 0;
+            text-align: center;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 24px;
+            text-align: right;
+        }
+
+        .back-link a {
+            color: #2980b9;
+            text-decoration: none;
+            font-size: 0.98em;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">株式会社サンプル商事　在庫管理システム</div>
+    <div class="container">
+        <h1>入出庫履歴</h1>
+        <div class="product-info">
+            <strong>商品名：</strong>{{ product.name }}<br>
+            <strong>SKU：</strong>{{ product.sku }}<br>
+            <strong>単位：</strong>{{ product.unit }}
+        </div>
+        {% if history and history|length > 0 %}
+        <table>
+            <tr>
+                <th>日付</th>
+                <th>種類</th>
+                <th>数量</th>
+                <th>メモ</th>
+            </tr>
+            {% for row in history %}
+            <tr>
+                <td>{{ row['rowid'] }}</td>
+                <td>{% if row['type'] == 'in' %}入庫{% else %}出庫{% endif %}</td>
+                <td>{{ row['qty'] }}</td>
+                <td>{{ row['note'] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <div class="no-history">履歴がありません。</div>
+        {% endif %}
+        <div class="back-link">
+            <a href="{{ url_for('products') }}">← 商品一覧へ戻る</a>
+        </div>
+    </div>
+</body>
+
+</html>
