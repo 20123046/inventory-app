@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>商品一覧</title>
+</head>
+<body>
+    <h1>商品一覧</h1>
+
+    <p><a href="{{ url_for('add_product') }}">新しい商品を追加する</a></p>
+    <p><a href="{{ url_for('stock') }}">入出庫管理へ</a></p>
+
+    {% if products %}
+    <table border="1" cellpadding="5" cellspacing="0">
+        <tr>
+            <th>商品名</th>
+            <th>SKU</th>
+            <th>単位</th>
+            <th>現在庫数</th>
+        </tr>
+        {% for product in products %}
+        <tr>
+            <td>{{ product.name }}</td>
+            <td>{{ product.sku }}</td>
+            <td>{{ product.unit }}</td>
+            <td>{{ product.stock_quantity }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>商品が登録されていません。</p>
+    {% endif %}
+</body>
+</html>
