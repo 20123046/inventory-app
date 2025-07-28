@@ -85,7 +85,13 @@
     </style>
 </head>
 <body>
-    <div class="header">株式会社サンプル商事　在庫管理システム</div>
+    <div class="header">
+        株式会社サンプル商事　在庫管理システム
+        <div style="font-size: 0.6em; margin-top: 8px;">
+            {{ current_user.username }}さん | 
+            <a href="{{ url_for('logout') }}" style="color: #fff; text-decoration: none;">ログアウト</a>
+        </div>
+    </div>
     <div class="container">
         <h1>商品一覧</h1>
         <form method="get" action="{{ url_for('products') }}" style="margin-bottom: 18px;">

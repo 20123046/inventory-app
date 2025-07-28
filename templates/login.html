@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ログイン | 在庫管理システム</title>
+    <style>
+        body {
+            background: #f4f6f8;
+            font-family: 'Segoe UI', 'Meiryo', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background: #2c3e50;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 1.5em;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+        .container {
+            background: #fff;
+            max-width: 400px;
+            margin: 40px auto;
+            padding: 32px 36px 24px 36px;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(44,62,80,0.08);
+            border: 1px solid #e0e0e0;
+        }
+        h1 {
+            font-size: 1.3em;
+            margin-bottom: 18px;
+            color: #2c3e50;
+            border-left: 4px solid #2980b9;
+            padding-left: 10px;
+        }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        label {
+            font-weight: bold;
+            color: #34495e;
+            display: block;
+            margin-bottom: 4px;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px 8px;
+            border: 1px solid #bfc9d1;
+            border-radius: 4px;
+            font-size: 1em;
+            background: #f9fafb;
+            box-sizing: border-box;
+        }
+        button[type="submit"] {
+            background: #2980b9;
+            color: #fff;
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            padding: 12px 32px;
+            font-size: 1em;
+            width: 100%;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button[type="submit"]:hover {
+            background: #206090;
+        }
+        .register-link {
+            text-align: center;
+            margin-top: 18px;
+        }
+        .register-link a {
+            color: #2980b9;
+            text-decoration: none;
+        }
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+        .flash-message {
+            background: #e74c3c;
+            color: #fff;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">株式会社サンプル商事　在庫管理システム</div>
+    <div class="container">
+        <h1>ログイン</h1>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="flash-message">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form method="post">
+            <div class="form-group">
+                <label for="username">ユーザー名</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">パスワード</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">ログイン</button>
+        </form>
+        <div class="register-link">
+            <a href="{{ url_for('register') }}">新規ユーザー登録</a>
+        </div>
+    </div>
+</body>
+</html> 
