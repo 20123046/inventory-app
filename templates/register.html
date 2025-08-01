@@ -106,6 +106,36 @@
                 <input type="text" id="username" name="username" required>
             </div>
             <div class="form-group">
+                <label>グループ設定</label>
+                <div style="margin-bottom: 8px;">
+                    <input type="radio" id="existing_group" name="group_option" value="existing" checked>
+                    <label for="existing_group" style="display: inline; font-weight: normal;">既存のグループを選択</label>
+                </div>
+                <div style="margin-bottom: 8px;">
+                    <input type="radio" id="new_group" name="group_option" value="new">
+                    <label for="new_group" style="display: inline; font-weight: normal;">新しいグループを作成</label>
+                </div>
+            </div>
+            <div class="form-group" id="existing_group_section">
+                <label for="group_id">グループ選択</label>
+                <select id="group_id" name="group_id">
+                    <option value="">グループを選択してください</option>
+                    {% for group in groups %}
+                    <option value="{{ group.id }}">{{ group.name }}</option>
+                    {% endfor %}
+                </select>
+                <div style="margin-top: 8px; font-size: 0.9em; color: #666;">
+                    ※ グループを選択しない場合は「デフォルトグループ」が自動で作成されます
+                </div>
+            </div>
+            <div class="form-group" id="new_group_section" style="display: none;">
+                <label for="new_group_name">新しいグループ名</label>
+                <input type="text" id="new_group_name" name="new_group_name" placeholder="グループ名を入力してください">
+                <div style="margin-top: 8px; font-size: 0.9em; color: #666;">
+                    ※ 新しいグループを作成して、そのグループに所属します
+                </div>
+            </div>
+            <div class="form-group">
                 <label for="password">パスワード</label>
                 <input type="password" id="password" name="password" required>
             </div>
@@ -115,5 +145,29 @@
             <a href="{{ url_for('login') }}">ログイン画面へ戻る</a>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const existingGroupRadio = document.getElementById('existing_group');
+            const newGroupRadio = document.getElementById('new_group');
+            const existingGroupSection = document.getElementById('existing_group_section');
+            const newGroupSection = document.getElementById('new_group_section');
+
+            function toggleGroupSection() {
+                if (newGroupRadio.checked) {
+                    existingGroupSection.style.display = 'none';
+                    newGroupSection.style.display = 'block';
+                } else {
+                    existingGroupSection.style.display = 'block';
+                    newGroupSection.style.display = 'none';
+                }
+            }
+
+            existingGroupRadio.addEventListener('change', toggleGroupSection);
+            newGroupRadio.addEventListener('change', toggleGroupSection);
+
+            // Initial call to set the correct display on page load
+            toggleGroupSection();
+        });
+    </script>
 </body>
 </html> 

@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
     <meta charset="UTF-8">
-    <title>商品編集 | 在庫管理システム</title>
+    <title>グループ追加 | 在庫管理システム</title>
     <style>
         body {
             background: #f4f6f8;
@@ -11,7 +10,6 @@
             margin: 0;
             padding: 0;
         }
-
         .header {
             background: #2c3e50;
             color: #fff;
@@ -21,17 +19,15 @@
             letter-spacing: 2px;
             font-weight: bold;
         }
-
         .container {
             background: #fff;
             max-width: 420px;
             margin: 40px auto;
             padding: 32px 36px 24px 36px;
             border-radius: 8px;
-            box-shadow: 0 2px 12px rgba(44, 62, 80, 0.08);
+            box-shadow: 0 2px 12px rgba(44,62,80,0.08);
             border: 1px solid #e0e0e0;
         }
-
         h1 {
             font-size: 1.3em;
             margin-bottom: 18px;
@@ -39,25 +35,21 @@
             border-left: 4px solid #2980b9;
             padding-left: 10px;
         }
-
         .form-table {
             width: 100%;
             border-collapse: separate;
             border-spacing: 0 12px;
         }
-
         .form-table td {
             padding: 0 0 0 4px;
         }
-
         label {
             font-weight: bold;
             color: #34495e;
             display: inline-block;
             margin-bottom: 4px;
         }
-
-        input[type="text"] {
+        input[type="text"], textarea {
             width: 98%;
             padding: 7px 8px;
             border: 1px solid #bfc9d1;
@@ -65,15 +57,10 @@
             font-size: 1em;
             background: #f9fafb;
         }
-        input[type="file"] {
-            width: 98%;
-            padding: 7px 8px;
-            border: 1px solid #bfc9d1;
-            border-radius: 4px;
-            font-size: 1em;
-            background: #f9fafb;
+        textarea {
+            height: 80px;
+            resize: vertical;
         }
-
         button[type="submit"] {
             background: #2980b9;
             color: #fff;
@@ -86,27 +73,22 @@
             cursor: pointer;
             transition: background 0.2s;
         }
-
         button[type="submit"]:hover {
             background: #206090;
         }
-
         .back-link {
             display: block;
             margin-top: 24px;
             text-align: right;
         }
-
         .back-link a {
             color: #2980b9;
             text-decoration: none;
             font-size: 0.98em;
         }
-
         .back-link a:hover {
             text-decoration: underline;
         }
-
         .desc {
             color: #888;
             font-size: 0.98em;
@@ -114,51 +96,27 @@
         }
     </style>
 </head>
-
 <body>
     <div class="header">株式会社サンプル商事　在庫管理システム</div>
     <div class="container">
-        <h1>商品情報編集</h1>
-        <div class="desc">商品情報を修正し「更新」ボタンを押してください。</div>
-        <form method="post" enctype="multipart/form-data">
+        <h1>グループ追加</h1>
+        <div class="desc">新しいグループを登録します。必要事項を入力してください。</div>
+        <form method="post">
             <table class="form-table">
                 <tr>
-                    <td><label for="name">商品名</label></td>
-                    <td><input type="text" id="name" name="name" value="{{ product.name }}" required></td>
+                    <td><label for="name">グループ名</label></td>
+                    <td><input type="text" id="name" name="name" required></td>
                 </tr>
                 <tr>
-                    <td><label for="sku">SKU</label></td>
-                    <td><input type="text" id="sku" name="sku" value="{{ product.sku }}"></td>
-                </tr>
-                <tr>
-                    <td><label for="unit">単位</label></td>
-                    <td><input type="text" id="unit" name="unit" value="{{ product.unit }}"></td>
-                </tr>
-                <tr>
-                    <td><label for="min_qty">最低在庫数</label></td>
-                    <td><input type="number" id="min_qty" name="min_qty" min="0" value="{{ product.min_qty or 0 }}"></td>
-                </tr>
-                <tr>
-                    <td><label for="image">商品画像</label></td>
-                    <td>
-                        {% if product.image_url %}
-                        <div style="margin-bottom: 8px;">
-                            <img src="{{ product.image_url }}" alt="商品画像" style="max-width: 100px; max-height: 100px; border: 1px solid #ddd; border-radius: 4px;">
-                        </div>
-                        {% endif %}
-                        <input type="file" id="image" name="image" accept="image/*">
-                        <div style="margin-top: 4px; font-size: 0.9em; color: #666;">
-                            ※ 新しい画像を選択すると現在の画像が置き換えられます
-                        </div>
-                    </td>
+                    <td><label for="description">説明</label></td>
+                    <td><textarea id="description" name="description" placeholder="グループの説明を入力してください"></textarea></td>
                 </tr>
             </table>
-            <button type="submit">更新</button>
+            <button type="submit">追加</button>
         </form>
         <div class="back-link">
-            <a href="{{ url_for('products') }}">← 商品一覧へ戻る</a>
+            <a href="{{ url_for('groups') }}">← グループ一覧へ戻る</a>
         </div>
     </div>
 </body>
-
-</html>
+</html> 

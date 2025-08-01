@@ -1,33 +1,51 @@
 -- schema.sql
 
--- ユーザーテーブル
+-- グループテーブル
+CREATE TABLE IF NOT EXISTS groups (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- ユーザーテーブル（グループID追加）
 CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    email TEXT NOT NULL,
+    group_id INTEGER,
+    is_admin BOOLEAN DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (group_id) REFERENCES groups (id)
 );
 
--- 商品テーブル（user_idカラム追加）
+-- 商品テーブル（グループID追加、画像URL追加）
 CREATE TABLE IF NOT EXISTS products (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     sku TEXT,
     unit TEXT,
-    user_id INTEGER NOT NULL,
+    min_qty INTEGER DEFAULT 0,
+    image_url TEXT,
+    group_id INTEGER NOT NULL,
+    created_by INTEGER NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users (id)
+    FOREIGN KEY (group_id) REFERENCES groups (id),
+    FOREIGN KEY (created_by) REFERENCES users (id)
 );
 
--- 在庫テーブル（user_idカラム追加）
+-- 在庫テーブル（グループID追加）
 CREATE TABLE IF NOT EXISTS stocks (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     product_id INTEGER NOT NULL,
     type TEXT NOT NULL,
     qty INTEGER NOT NULL,
     note TEXT,
-    user_id INTEGER NOT NULL,
+    group_id INTEGER NOT NULL,
+    created_by INTEGER NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (product_id) REFERENCES products (id),
-    FOREIGN KEY (user_id) REFERENCES users (id)
+    FOREIGN KEY (group_id) REFERENCES groups (id),
+    FOREIGN KEY (created_by) REFERENCES users (id)
 );

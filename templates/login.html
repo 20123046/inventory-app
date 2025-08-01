@@ -44,7 +44,7 @@
             display: block;
             margin-bottom: 4px;
         }
-        input[type="text"], input[type="password"] {
+        input[type="text"], input[type="password"], select {
             width: 100%;
             padding: 10px 8px;
             border: 1px solid #bfc9d1;
@@ -108,6 +108,15 @@
             <div class="form-group">
                 <label for="password">パスワード</label>
                 <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="group_id">グループ</label>
+                <select id="group_id" name="group_id" required>
+                    <option value="">グループを選択してください</option>
+                    {% for group in groups %}
+                    <option value="{{ group.id }}">{{ group.name }}</option>
+                    {% endfor %}
+                </select>
             </div>
             <button type="submit">ログイン</button>
         </form>

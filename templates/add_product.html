@@ -57,6 +57,14 @@
             font-size: 1em;
             background: #f9fafb;
         }
+        input[type="file"] {
+            width: 98%;
+            padding: 7px 8px;
+            border: 1px solid #bfc9d1;
+            border-radius: 4px;
+            font-size: 1em;
+            background: #f9fafb;
+        }
         button[type="submit"] {
             background: #2980b9;
             color: #fff;
@@ -97,7 +105,7 @@
     <div class="container">
         <h1>商品マスタ追加</h1>
         <div class="desc">新しい商品を登録します。必要事項を入力してください。</div>
-        <form method="post" action="/add_product">
+        <form method="post" action="/add_product" enctype="multipart/form-data">
             <table class="form-table">
                 <tr>
                     <td><label for="name">商品名</label></td>
@@ -110,6 +118,14 @@
                 <tr>
                     <td><label for="unit">単位</label></td>
                     <td><input type="text" id="unit" name="unit"></td>
+                </tr>
+                <tr>
+                    <td><label for="min_qty">最低在庫数</label></td>
+                    <td><input type="number" id="min_qty" name="min_qty" min="0" value="0"></td>
+                </tr>
+                <tr>
+                    <td><label for="image">商品画像</label></td>
+                    <td><input type="file" id="image" name="image" accept="image/*"></td>
                 </tr>
             </table>
             <button type="submit">追加</button>
